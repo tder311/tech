@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ask — Tom Derrick</title>
+  <meta name="description" content="Ask an AI assistant anything about Tom Derrick — experience, projects, skills.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='70' fill='%233fb950'>&gt;_</text></svg>">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ask — Tom Derrick">
+  <meta property="og:description" content="Ask an AI assistant anything about Tom Derrick — experience, projects, skills.">
+  <meta property="og:image" content="https://tder311.github.io/tech/assets/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="styles.css">
+  <script src="ask.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-nav">
+  <span class="brand">tom.derrick</span>
+  <nav aria-label="Pages">
+    <a href="index.html">home</a>
+    <a href="experience.html">experience</a>
+    <a href="projects.html">projects</a>
+    <a href="ask.html" class="active" aria-current="page">ask</a>
+    <a href="#contact">contact</a>
+    <a class="btn-cv" href="assets/cv.pdf" download>↓ CV</a>
+  </nav>
+</header>
+<main id="main">
+  <section id="ask" class="wrap" aria-label="Ask about Tom">
+    <p class="shell-line"><span class="ps-user">$</span> ask --about tom</p>
+    <p class="prose">An AI assistant with my bio as context — ask it anything about my experience, projects, or skills.</p>
+    <noscript><p class="prose ask-error">This page needs JavaScript — everything else on the site works without it, or just email <a href="mailto:tderrick98@outlook.com">tderrick98@outlook.com</a>.</p></noscript>
+
+    <div class="term ask-term">
+      <div class="term-bar"><span class="dots" aria-hidden="true">●●●</span> ask — powered by an LLM over my bio</div>
+      <div class="term-body ask-log" id="ask-log" aria-live="polite">
+        <p class="ask-answer">Hi — ask me anything about Tom. Try one of the suggestions below.</p>
+      </div>
+      <form id="ask-form" class="ask-input-row">
+        <label for="ask-input" class="t-prompt" aria-label="Your question">&gt;</label>
+        <input id="ask-input" name="question" type="text" maxlength="500" autocomplete="off"
+               placeholder="e.g. What did Tom build at Modo Energy?">
+        <button type="submit" class="btn-cv">ask</button>
+      </form>
+    </div>
+
+    <ul class="chips ask-suggestions">
+      <li><button class="chip green" type="button">What's Tom's experience with LLMs?</button></li>
+      <li><button class="chip blue" type="button">What optimisation work has he done?</button></li>
+      <li><button class="chip amber" type="button">What has he built outside work?</button></li>
+      <li><button class="chip pink" type="button">Why should we hire him?</button></li>
+    </ul>
+  </section>
+</main>
+<footer id="contact" class="site-footer">
+  <div class="wrap footer-row">
+    <p class="muted">
+      <a href="mailto:tderrick98@outlook.com">tderrick98@outlook.com</a> ·
+      <a href="https://github.com/tder311" target="_blank" rel="noopener">github.com/tder311</a> ·
+      <a href="https://www.linkedin.com/in/tderrick98/" target="_blank" rel="noopener">linkedin/tderrick98</a>
+    </p>
+    <a class="btn-cv" href="assets/cv.pdf" download>↓ Download CV (PDF)</a>
+  </div>
+</footer>
+</body>
+</html>

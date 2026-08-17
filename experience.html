@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Experience — Tom Derrick</title>
+  <meta name="description" content="Tom Derrick's experience — Modo Energy, Delta Electricity, TechTarget — and education.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='70' fill='%233fb950'>&gt;_</text></svg>">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Experience — Tom Derrick">
+  <meta property="og:description" content="Tom Derrick's experience — Modo Energy, Delta Electricity, TechTarget — and education.">
+  <meta property="og:image" content="https://tder311.github.io/tech/assets/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-nav">
+  <span class="brand">tom.derrick</span>
+  <nav aria-label="Pages">
+    <a href="index.html">home</a>
+    <a href="experience.html" class="active" aria-current="page">experience</a>
+    <a href="projects.html">projects</a>
+    <a href="ask.html">ask</a>
+    <a href="#contact">contact</a>
+    <a class="btn-cv" href="assets/cv.pdf" download>↓ CV</a>
+  </nav>
+</header>
+<main id="main">
+  <section id="experience" class="wrap" aria-label="Experience">
+    <p class="shell-line"><span class="ps-user">$</span> git log --experience</p>
+
+    <article class="card">
+      <div class="role-head">
+        <h2>Data Scientist · Modo Energy</h2>
+        <span class="muted">Aug 2025 — present</span>
+      </div>
+      <p class="role-intro muted">Modo Energy is a Series B scaleup building AI-driven forecasting and investment intelligence for the energy transition — customers include Goldman Sachs, Apollo, EDF, and Shell. I joined the Australian team in its first year and lead the modelling behind its local products.</p>
+      <ul class="role-points">
+        <li>Designed and shipped the nodal transmission network model behind the July 2026 forecast release — DC optimal power flow, bus-level dispatch, PTDF, load disaggregation, transmission augmentation through 2050+. Took the product from regional to 200+ nodes: largest update since the Australian launch and its first on-time release, delivered as sole modeller while training a new data scientist.</li>
+        <li>Designed the capacity expansion model (linopy + XPRESS MILP) that replaced weeks of manual capacity-buildout tuning per forecast with a single optimisation at minimal compute cost.</li>
+        <li>Build and run the production cost models producing long-term NEM price forecasts; battery dispatch optimisation and revenue modelling in the multi-market Global Dispatch Model (Pyomo + XPRESS).</li>
+        <li>Built the full-stack contracting strategy system — backend valuation engine plus React configuration UX shipped to customers.</li>
+        <li>Built and deployed an LLM support agent (Claude + RAG over model docs, code, and outputs) answering customer and internal questions across Slack and Intercom.</li>
+        <li>Contributed to Modo's AI assistant — data engineering feeding it forecast datasets, and semantic table annotation so the model can interpret them.</li>
+        <li>Act as the forecasting expert on customer calls alongside the sales team — technical due diligence with prospects evaluating the product, and discovery with existing customers whose requirements feed back into the NEM model roadmap I direct.</li>
+        <li>Present each forecast release at Modo's customer workshops and to the wider business — translating model and methodology changes into what they mean for investment and trading decisions.</li>
+        <li>Author Modo's published forecast research — <a href="https://modoenergy.com/research/en/australia-nem-forecast-july-2026-release" target="_blank" rel="noopener">model releases</a>, <a href="https://modoenergy.com/research/en/nem-market-outlook-report-q2-2026-forecast" target="_blank" rel="noopener">market outlooks</a>, and <a href="https://modoenergy.com/research/en/nem-nodal-forecast-bess-returns" target="_blank" rel="noopener">deep dives</a>.</li>
+      </ul>
+    </article>
+
+    <article class="card">
+      <div class="role-head">
+        <h2>Market Analyst ← Graduate · Delta Electricity</h2>
+        <span class="muted">Jul 2022 — Jul 2025</span>
+      </div>
+      <ul class="role-points">
+        <li>Designed whole-of-market NEM simulation models (PLEXOS/Prophet) used for trading, hedging, and business development.</li>
+        <li>Built an ML-powered spot-price forecasting model and a Monte-Carlo Gross-Margin-at-Risk engine for risk compliance and portfolio optimisation.</li>
+        <li>Modelled major investment decisions — including the end-of-life extension of Vales Point Power Station — and LGC/ACCU certificate trading strategy.</li>
+        <li>Optimised the planned-outage schedule to minimise revenue impact; built the internal live trading-performance dashboard. Completed Delta's 2024 future-leadership program.</li>
+      </ul>
+    </article>
+
+    <article class="card compact">
+      <div class="role-head">
+        <h2 class="h-small">Customer Success Manager · TechTarget</h2>
+        <span class="muted">Nov 2020 — Jun 2022</span>
+      </div>
+      <p class="muted">Managed APAC campaign delivery for marquee accounts (Red Hat, Dell, IBM, Cisco, Alibaba).</p>
+    </article>
+  </section>
+
+  <section id="education" class="wrap" aria-label="Education">
+    <p class="shell-line"><span class="ps-user">$</span> cat education</p>
+    <ul class="edu-list">
+      <li>UNSW — Master of Data Science <span class="amber-text">(with Excellence)</span></li>
+      <li>University of Sydney — BSc, Computer Science &amp; Statistics</li>
+      <li>AFMA Financial Markets Accreditation</li>
+    </ul>
+  </section>
+</main>
+<footer id="contact" class="site-footer">
+  <div class="wrap footer-row">
+    <p class="muted">
+      <a href="mailto:tderrick98@outlook.com">tderrick98@outlook.com</a> ·
+      <a href="https://github.com/tder311" target="_blank" rel="noopener">github.com/tder311</a> ·
+      <a href="https://www.linkedin.com/in/tderrick98/" target="_blank" rel="noopener">linkedin/tderrick98</a>
+    </p>
+    <a class="btn-cv" href="assets/cv.pdf" download>↓ Download CV (PDF)</a>
+  </div>
+</footer>
+</body>
+</html>

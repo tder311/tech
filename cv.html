@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Tom Derrick — CV</title>
+  <style>
+    @page { size: A4; margin: 14mm 16mm; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: Helvetica, Arial, sans-serif; font-size: 10.5pt; line-height: 1.45; color: #111; }
+    h1 { font-size: 20pt; font-weight: 700; }
+    .contact { font-size: 9.5pt; color: #444; margin-top: 2pt; }
+    .contact a { color: #444; text-decoration: none; }
+    h2 { font-size: 11pt; text-transform: uppercase; letter-spacing: 1px; border-bottom: 1px solid #999; margin: 12pt 0 6pt; padding-bottom: 2pt; break-after: avoid-page; }
+    .role { display: flex; justify-content: space-between; align-items: baseline; margin-top: 8pt; }
+    .role h3 { font-size: 10.5pt; }
+    .dates { font-size: 9.5pt; color: #444; }
+    .role-sub { font-size: 9.5pt; color: #444; font-style: italic; }
+    ul { margin: 3pt 0 0 14pt; }
+    li { margin-top: 2pt; }
+    .skills { margin-top: 4pt; }
+  </style>
+</head>
+<body>
+  <h1>Tom Derrick</h1>
+  <p class="contact">Data Scientist &amp; AI Engineer · Sydney, Australia ·
+    <a href="mailto:tderrick98@outlook.com">tderrick98@outlook.com</a> ·
+    <a href="https://github.com/tder311">github.com/tder311</a> ·
+    <a href="https://www.linkedin.com/in/tderrick98/">linkedin.com/in/tderrick98</a></p>
+
+  <h2>Profile</h2>
+  <p>I'm a data scientist with four years across forecasting, mathematical optimisation, and applied AI — currently leading the development behind Modo Energy's Australian products. My work runs the full stack: MILP models solving over real transmission networks, ML price forecasters, the AWS pipelines that run them, and the React frontends customers touch. I direct our NEM model roadmap, reporting to the Head of Region, and train and delegate to a junior data scientist. I'm also the technical voice for the product in front of customers — on pre-sales calls, and presenting each release at customer workshops.</p>
+
+  <h2>Experience</h2>
+  <div class="role"><h3>Data Scientist — Modo Energy, Sydney</h3><span class="dates">Aug 2025 – present</span></div>
+  <p class="role-sub">Series B scaleup building AI-driven forecasting and investment intelligence for the energy transition — customers include Goldman Sachs, Apollo, EDF, and Shell. I joined the Australian team in its first year and lead the modelling behind its local products.</p>
+  <ul>
+    <li>Designed and shipped the nodal transmission network model behind the July 2026 forecast release — DC optimal power flow, bus-level dispatch, PTDF, load disaggregation, transmission augmentation through 2050+. Took the product from regional to 200+ nodes: largest update since the Australian launch and its first on-time release, delivered as sole modeller while training a new data scientist.</li>
+    <li>Designed the capacity expansion model (linopy + XPRESS MILP) that replaced weeks of manual capacity-buildout tuning per forecast with a single optimisation at minimal compute cost.</li>
+    <li>Build and run the production cost models producing long-term NEM price forecasts; battery dispatch optimisation and revenue modelling in the multi-market Global Dispatch Model (Pyomo + XPRESS).</li>
+    <li>Built the full-stack contracting strategy system — backend valuation engine plus React configuration UX shipped to customers.</li>
+    <li>Built and deployed an LLM support agent (Claude + RAG over model docs, code, and outputs) answering customer and internal questions across Slack and Intercom; contributed data engineering and semantic table annotation to Modo's AI assistant.</li>
+    <li>Act as the forecasting expert on customer calls alongside the sales team — technical due diligence with prospects evaluating the product, and discovery with existing customers whose requirements feed back into the NEM model roadmap I direct.</li>
+    <li>Present each forecast release at Modo's customer workshops and to the wider business — translating model and methodology changes into what they mean for investment and trading decisions.</li>
+    <li>Author Modo's published forecast research — model releases, market outlooks, and deep dives.</li>
+  </ul>
+
+  <div class="role"><h3>Market Analyst (Graduate, Jul 2022 – Feb 2023) — Delta Electricity, Sydney</h3><span class="dates">Jul 2022 – Jul 2025</span></div>
+  <ul>
+    <li>Designed whole-of-market NEM simulation models (PLEXOS/Prophet) used for trading, hedging, and business development.</li>
+    <li>Built an ML-powered spot-price forecasting model and a Monte-Carlo Gross-Margin-at-Risk engine for risk compliance and portfolio optimisation.</li>
+    <li>Modelled major investment decisions — including the end-of-life extension of Vales Point Power Station — and LGC/ACCU certificate trading strategy.</li>
+    <li>Optimised the planned-outage schedule to minimise revenue impact; built the internal live trading-performance dashboard. Completed Delta's 2024 future-leadership program.</li>
+  </ul>
+
+  <div class="role"><h3>Customer Success Manager — TechTarget, Sydney</h3><span class="dates">Nov 2020 – Jun 2022</span></div>
+  <ul>
+    <li>Managed APAC campaign delivery for marquee accounts (Red Hat, Dell, IBM, Cisco, Alibaba).</li>
+  </ul>
+
+  <h2>Personal Projects</h2>
+  <ul>
+    <li><strong>nem-market-watch</strong> (nemdash.up.railway.app) — live dashboard for Australia's National Electricity Market: five-minute prices and demand, market metrics, PASA reserve outlook, bid-band analysis, and a tool-calling LLM agent that answers questions against live data. React · FastAPI · PostgreSQL · Railway.</li>
+    <li><strong>nem-forward</strong> (forward-frontend-production.up.railway.app) — XGBoost price forecaster (7-day, half-hourly, P10–P90) benchmarked against AEMO pre-dispatch, LP battery dispatch optimiser, and bid-band generation; every forecast persisted for later scoring against actuals. XGBoost · FastAPI · React.</li>
+    <li><strong>nem-ingestion</strong> — five-minute AEMO market data pipeline: six NEMWEB clients, sole writer and schema owner across 13 tables, backfill CLIs, hourly rollups, and a retention sweep that cut the database from 21 GB to 2 GB. Python · PostgreSQL · Railway.</li>
+    <li><strong>agent-tui</strong> (github.com/tder311/agent-tui) — terminal UI for local AI coding agents: git worktrees, branches, Claude Code / OpenCode sessions, live running agents, and open PRs, grouped by project via app-agnostic filesystem discovery; read-only by default. Go · Bubble Tea.</li>
+    <li><strong>opencode-orchestrator</strong> (github.com/tder311/opencode-orchestrator · npm) — opencode plugin for parallel AI coding agents: each spawns into an isolated git worktree with its own interactive terminal session, pushing completion/blocker reports back to a supervising session.</li>
+    <li><strong>railway-tui</strong> (github.com/tder311/railway-tui) — terminal dashboard for Railway in Go and Bubble Tea: single static binary, OAuth (PKCE) login, live view of deployments, log streams, and environment variables over Railway's GraphQL API, with restart/redeploy/rollback actions and rate-limit-aware polling.</li>
+    <li><strong>orchestrator</strong> — coordinates multiple AI coding agents working in parallel across codebases: worktree isolation, task routing, session management.</li>
+  </ul>
+
+  <h2>Education</h2>
+  <ul>
+    <li>UNSW — Master of Data Science (with Excellence)</li>
+    <li>University of Sydney — BSc, Computer Science &amp; Statistics</li>
+    <li>AFMA Financial Markets Accreditation</li>
+  </ul>
+
+  <h2>Skills</h2>
+  <p class="skills">Python · linopy · Pyomo · XPRESS · XGBoost · AWS (Batch, S3) · FastAPI · React · PostgreSQL · Claude API</p>
+</body>
+</html>

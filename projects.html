@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Projects — Tom Derrick</title>
+  <meta name="description" content="Tom Derrick's personal projects — a live NEM market dashboard, a price forecaster and battery dispatch optimiser, a five-minute market data pipeline, a terminal UI for supervising AI coding agents, an opencode plugin for parallel coding agents, and a Railway deployment TUI.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='70' fill='%233fb950'>&gt;_</text></svg>">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Projects — Tom Derrick">
+  <meta property="og:description" content="Tom Derrick's personal projects — a live NEM market dashboard, a price forecaster and battery dispatch optimiser, a five-minute market data pipeline, a terminal UI for supervising AI coding agents, an opencode plugin for parallel coding agents, and a Railway deployment TUI.">
+  <meta property="og:image" content="https://tder311.github.io/tech/assets/og-card.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-nav">
+  <span class="brand">tom.derrick</span>
+  <nav aria-label="Pages">
+    <a href="index.html">home</a>
+    <a href="experience.html">experience</a>
+    <a href="projects.html" class="active" aria-current="page">projects</a>
+    <a href="ask.html">ask</a>
+    <a href="#contact">contact</a>
+    <a class="btn-cv" href="assets/cv.pdf" download>↓ CV</a>
+  </nav>
+</header>
+<main id="main">
+  <section id="projects" class="wrap" aria-label="Projects">
+    <p class="shell-line"><span class="ps-user">$</span> ls ~/projects</p>
+
+    <article class="card">
+      <div class="role-head">
+        <h2>nem-market-watch <span class="chip green tag">live</span> <span class="chip blue tag">public</span></h2>
+        <span class="muted"><a href="https://nemdash.up.railway.app" target="_blank" rel="noopener">nemdash.up.railway.app →</a></span>
+      </div>
+      <p class="proj-desc">Live dashboard for Australia's National Electricity Market: five-minute regional prices and demand, market metrics, AEMO's PASA reserve outlook, bid-band analysis down to individual units, CSV exports, and a tool-calling LLM agent that answers market questions by querying live data rather than guessing from a prompt. Read-only by construction — nothing in the runtime writes to the database.</p>
+      <p class="muted proj-tech">React · FastAPI · PostgreSQL · Railway · 240+ tests · <a href="https://github.com/tder311/nem-market-watch" target="_blank" rel="noopener">github.com/tder311/nem-market-watch</a></p>
+      <div class="shot-grid one">
+        <figure class="browser-frame">
+          <figcaption class="browser-bar"><span class="dots" aria-hidden="true">●●●</span> live dashboard — regional prices &amp; demand</figcaption>
+          <a href="assets/market-watch-dashboard.png" target="_blank" rel="noopener"><img src="assets/market-watch-dashboard.png" alt="Live market dashboard: real-time NEM regional prices and demand beside a map of Australia" loading="lazy" width="1440" height="900"></a>
+        </figure>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="role-head">
+        <h2>nem-forward <span class="chip green tag">live</span> <span class="chip blue tag">public</span></h2>
+        <span class="muted"><a href="https://forward-frontend-production.up.railway.app" target="_blank" rel="noopener">forward-frontend-production.up.railway.app →</a></span>
+      </div>
+      <p class="proj-desc">The forward-looking half of the stack: an XGBoost price forecaster (7-day horizon, half-hourly, P10–P90 bands) plotted against AEMO's own pre-dispatch so the two can be judged side by side, an LP battery dispatch optimiser, and bid-band generation. Every forecast is persisted with the timestamp of the model that produced it, so past runs can be scored against actuals instead of being quietly overwritten by the next retrain.</p>
+      <p class="muted proj-tech">XGBoost · FastAPI · React · PostgreSQL · Railway · 90+ tests · <a href="https://github.com/tder311/nem-forward" target="_blank" rel="noopener">github.com/tder311/nem-forward</a></p>
+      <div class="shot-grid one">
+        <figure class="browser-frame">
+          <figcaption class="browser-bar"><span class="dots" aria-hidden="true">●●●</span> price forecast — model vs AEMO pre-dispatch, P10–P90</figcaption>
+          <a href="assets/forward-forecast.png" target="_blank" rel="noopener"><img src="assets/forward-forecast.png" alt="Price forecast page: 7-day NSW1 price forecast with P10–P90 uncertainty band overlaid on AEMO pre-dispatch, spike markers highlighted" loading="lazy" width="1440" height="900"></a>
+        </figure>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="role-head">
+        <h2>nem-ingestion</h2>
+        <span class="muted">private</span>
+      </div>
+      <p class="proj-desc">The pipeline both dashboards read from: six NEMWEB clients on a five-minute worker covering dispatch prices, SCADA generation, price setter, bids, PASA, and generator metadata. It is the only process that writes to Postgres and the sole owner of the schema across 13 tables, which is what lets the two apps above be read-only. Backfill CLIs handle cold starts and gap repair, hourly rollups serve the long display windows, and a retention sweep took the database from 21 GB to 2 GB — most of the hosting bill was Postgres memory.</p>
+      <p class="muted proj-tech">Python · PostgreSQL · Railway · 300+ tests</p>
+      <div class="term" role="img" aria-label="Example nem-ingestion session: a five-minute worker poll writing rows for each NEMWEB feed, followed by a bid backfill over 59 days">
+        <div class="term-bar"><span class="dots" aria-hidden="true">●●●</span> nem-ingestion — example session</div>
+        <pre class="term-body"><code><span class="t-prompt">$</span> python run_worker.py
+  <span class="t-ok">✓</span> dispatch prices     288 rows   NSW1 QLD1 SA1 TAS1 VIC1
+  <span class="t-ok">✓</span> scada             4 812 rows
+  <span class="t-ok">✓</span> price setter      1 440 rows
+  <span class="t-ok">✓</span> bid day offer       506 rows
+  <span class="t-dim">·</span> pasa              <span class="t-dim">unchanged — no new file published</span>
+  <span class="t-ok">✓</span> rollup 12:00      dispatch_data_hourly <span class="t-ok">+1 205</span>
+<span class="t-dim">next poll in 5m · retention sweep due 00:15</span>
+
+<span class="t-prompt">$</span> python -m scripts.backfill bids --start 2026-06-01
+<span class="t-dim">59 days · 3 already complete, skipped</span>
+  <span class="t-ok">✓</span> 1 843 226 rows written</code></pre>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="role-head">
+        <h2>agent-tui <span class="chip green tag">public</span></h2>
+        <span class="muted"><a href="https://github.com/tder311/agent-tui" target="_blank" rel="noopener">github.com/tder311/agent-tui →</a></span>
+      </div>
+      <p class="proj-desc">A terminal control room for local AI coding agents: one tree of every project on the machine, with its git worktrees, branches, historical Claude Code and OpenCode sessions, the agents running right now, and open GitHub PRs. Sessions carry real titles instead of raw UUIDs, live agents get a busy/idle/blocked status dot, and <code>o</code> opens anything — resume a session, open a worktree in a new terminal tab, or jump to a PR in the browser.</p>
+      <p class="proj-desc">Discovery is app-agnostic: rather than hardcoding where each tool puts its worktrees, it sweeps the filesystem for the <code>.git</code> markers git itself uses, so anything git considers a worktree is found no matter which app created it — Claude Code, Conductor, OpenCode, or something unregistered. Clones of the same upstream are folded into one project by normalised origin URL. Scanning is read-only and runs off the UI thread; the only mutations are explicit worktree/branch deletes and prunes, each behind a y/n confirm.</p>
+      <p class="muted proj-tech">Go · Bubble Tea · Lip Gloss · ~4,900 lines · 57 tests · MIT · <code>go install</code></p>
+      <div class="term" role="img" aria-label="agent-tui running: a project tree showing worktrees with dirty state, live agents with status dots, and open pull requests, with a keybinding bar along the bottom">
+        <div class="term-bar"><span class="dots" aria-hidden="true">●●●</span> agent-tui — example session</div>
+        <pre class="term-body"><code><span class="t-dim"> agent-tui │ 3 projects · 8 worktrees · 2 live agents · 4 PRs</span>
+
+ <span class="t-prompt">▾</span> monodo                                  <span class="t-dim">modoenergy/monodo</span>
+     <span class="t-dim">Worktrees</span>
+       feat/nem-battery      <span class="t-dim">WT</span> <span class="t-warn">claude</span>      <span class="t-warn">dirty</span> <span class="t-dim">↑2</span>
+       fix/tb-spreads        <span class="t-dim">WT</span> <span class="t-warn">claude</span>      <span class="t-ok">clean</span>
+     <span class="t-dim">Agents (live)</span>
+       <span class="t-ok">●</span> add battery constraints to the NEM  <span class="t-dim">busy · bg</span>
+       <span class="t-dim">●</span> nodal deep-dive charts              <span class="t-dim">idle · fg</span>
+     <span class="t-dim">Pull requests</span>
+       <span class="t-ok">#3053</span> feat(nem): TB spreads as $/MWh    <span class="t-dim">+412 −88</span>
+ <span class="t-prompt">▸</span> nem-forward
+ <span class="t-prompt">▸</span> ev-arb                                  <span class="t-dim">local</span>
+
+<span class="t-dim"> [o] open  [d] delete worktree  [/] filter  [r] refresh  [?] help</span></code></pre>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="role-head">
+        <h2>opencode-orchestrator <span class="chip green tag">public</span></h2>
+        <span class="muted"><a href="https://github.com/tder311/opencode-orchestrator" target="_blank" rel="noopener">github.com/tder311/opencode-orchestrator →</a></span>
+      </div>
+      <p class="proj-desc">Evolves the orchestrator (below) into a native opencode plugin: ask your session to spawn an agent and it gets its own git worktree and a background terminal tab running a full interactive coding session. Spawn several, keep working in your own tab, and supervise — agents push completion, blockers, and questions back via notifications and status reports injected into your main session.</p>
+      <p class="muted proj-tech">JavaScript · opencode plugin API · git worktrees · cmux · 73 tests · <a href="https://www.npmjs.com/package/@tder311/opencode-orchestrator" target="_blank" rel="noopener">npm: @tder311/opencode-orchestrator</a></p>
+      <div class="term" role="img" aria-label="Example opencode-orchestrator session: spawning an agent into an isolated worktree and checking agent statuses">
+        <div class="term-bar"><span class="dots" aria-hidden="true">●●●</span> opencode-orchestrator — example session</div>
+        <pre class="term-body"><code><span class="t-prompt">&gt;</span> spawn an agent in monodo to add battery constraints to the NEM
+  <span class="t-ok">✓</span> git worktree add ~/worktrees/monodo/feat-nem-battery
+  <span class="t-ok">✓</span> background tab opened — your focus is untouched
+  <span class="t-ok">✓</span> opencode booted in the worktree, task delivered
+
+<span class="t-dim">agent: reportstatus → notification · tab marked unread</span>
+
+<span class="t-prompt">&gt;</span> /agents
+  monodo/feat-nem-battery   <span class="t-ok">DONE</span>     tests green · ready for review
+  nem-forward/fix-pasa      <span class="t-warn">QUESTION</span> needs DATABASE_URL for fixture</code></pre>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="role-head">
+        <h2>railway-tui <span class="chip green tag">public</span></h2>
+        <span class="muted"><a href="https://github.com/tder311/railway-tui" target="_blank" rel="noopener">github.com/tder311/railway-tui →</a></span>
+      </div>
+      <p class="proj-desc">A terminal dashboard for Railway: one static binary that logs in over OAuth and gives a live view of every project, service, deployment, log stream, and environment variable — and restarts, redeploys, rolls back, stops, or cancels a deployment without leaving the terminal. Runtime, build, HTTP, and environment-wide log modes with live filtering; variables masked by default, revealed with <code>r</code> and copied over OSC52. Railway exposes no REST API for any of this, so it all runs over GraphQL, authenticated by an Authorization Code + PKCE flow with dynamic client registration and silent token refresh.</p>
+      <p class="proj-desc">Polling has to be frugal: a Hobby token allows roughly one request every 3.6 seconds, so each refresh is a single batched query, intervals are staggered per resource, and a 429 backs off exponentially. Every side effect is a Bubble Tea command returning a message — no goroutine touches UI state — which is what makes the model tree testable without a terminal.</p>
+      <p class="muted proj-tech">Go · Bubble Tea · Lip Gloss · Railway GraphQL API · OAuth 2.0 PKCE · 4,400 lines · MIT · <code>go install</code> · goreleaser + GitHub Actions release pipeline</p>
+      <div class="term" role="img" aria-label="railway-tui running: a project, environment and service tree on the left, a deployment table with status icons on the right, and a keybinding bar along the bottom">
+        <div class="term-bar"><span class="dots" aria-hidden="true">●●●</span> railway-tui — example session</div>
+        <pre class="term-body"><code><span class="t-dim"> nemdash ▸ production ▸ forward-backend │ tder311</span>
+<span class="t-dim">╭────────────────────────────╮╭──────────────────────────────────────────────────╮</span>
+<span class="t-dim">│</span>                            <span class="t-dim">│</span><span class="t-dim">│</span>│ <span class="t-ok">● Deployments</span> │ Logs │ Variables │ Details │    <span class="t-dim">│</span>
+<span class="t-dim">│</span>     tder311's Projects     <span class="t-dim">│</span><span class="t-dim">│</span>     <span class="t-dim">ID          Status      Age</span>                  <span class="t-dim">│</span>
+<span class="t-dim">│</span> <span class="t-prompt">▸</span>   <span class="t-ok">●</span> nemdash              <span class="t-dim">│</span><span class="t-dim">│</span> ✅   16a97d32    <span class="t-ok">SUCCESS</span>     2h37m               <span class="t-dim">│</span>
+<span class="t-dim">│</span>       production           <span class="t-dim">│</span><span class="t-dim">│</span> 🔨   4c1b9e02    <span class="t-warn">BUILDING</span>    12s                 <span class="t-dim">│</span>
+<span class="t-dim">│</span>         <span class="t-ok">●</span> forward-backend  <span class="t-dim">│</span><span class="t-dim">│</span> ✅   9e97309a    <span class="t-ok">SUCCESS</span>     1h04m               <span class="t-dim">│</span>
+<span class="t-dim">│</span>         <span class="t-ok">●</span> forward-frontend <span class="t-dim">│</span><span class="t-dim">│</span> ❌   2ad03327    <span class="t-err">FAILED</span>      3h11m               <span class="t-dim">│</span>
+<span class="t-dim">│</span>         <span class="t-ok">●</span> worker           <span class="t-dim">│</span><span class="t-dim">│</span>                                                  <span class="t-dim">│</span>
+<span class="t-dim">│</span>         <span class="t-ok">●</span> Postgres         <span class="t-dim">│</span><span class="t-dim">│</span>  <span class="t-dim">enter → logs</span>    <span class="t-dim">R redeploy</span>    <span class="t-dim">B rollback</span>        <span class="t-dim">│</span>
+<span class="t-dim">╰────────────────────────────╯╰──────────────────────────────────────────────────╯</span>
+<span class="t-dim"> NAV  Deploys   [tab] focus  [1-4] tab  [?] help  [q] quit</span></code></pre>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="role-head">
+        <h2>orchestrator</h2>
+        <span class="muted">private</span>
+      </div>
+      <p class="proj-desc">Coordinates multiple AI coding agents working in parallel across codebases — each task gets an isolated git worktree and its own agent session; a persistent message queue reports completion, blockers, and questions back to a central command session.</p>
+      <p class="muted proj-tech">Python · git worktrees · agent tooling</p>
+      <div class="term" role="img" aria-label="Example orchestrator terminal session: creating two agent workspaces, draining the message queue, and viewing the workspace dashboard">
+        <div class="term-bar"><span class="dots" aria-hidden="true">●●●</span> orchestrator — example session</div>
+        <pre class="term-body"><code><span class="t-prompt">$</span> new-workspace.sh --repo monodo --region sydney --branch feat/tb-spreads
+<span class="t-ok">✓</span> worktree ~/worktrees/monodo/sydney · agent launched
+
+<span class="t-prompt">$</span> new-workspace.sh --repo nem-forward --region osaka --branch fix/pasa-staleness
+<span class="t-ok">✓</span> worktree ~/worktrees/nem-forward/osaka · agent launched
+
+<span class="t-prompt">$</span> /watch
+<span class="t-dim">draining .queue/ — 2 messages</span>
+  [sydney] <span class="t-ok">DONE</span>    TB spread metrics added · tests green · draft PR opened
+  [osaka]  <span class="t-warn">BLOCKED</span> needs DATABASE_URL for the test fixture
+
+<span class="t-prompt">$</span> dashboard.sh
+  monodo/sydney       <span class="t-ok">idle</span>     feat/tb-spreads      +412 −88
+  nem-forward/osaka   <span class="t-warn">waiting</span>  fix/pasa-staleness   needs input</code></pre>
+      </div>
+    </article>
+  </section>
+</main>
+<footer id="contact" class="site-footer">
+  <div class="wrap footer-row">
+    <p class="muted">
+      <a href="mailto:tderrick98@outlook.com">tderrick98@outlook.com</a> ·
+      <a href="https://github.com/tder311" target="_blank" rel="noopener">github.com/tder311</a> ·
+      <a href="https://www.linkedin.com/in/tderrick98/" target="_blank" rel="noopener">linkedin/tderrick98</a>
+    </p>
+    <a class="btn-cv" href="assets/cv.pdf" download>↓ Download CV (PDF)</a>
+  </div>
+</footer>
+</body>
+</html>

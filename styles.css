@@ -179,11 +179,21 @@ main { padding-bottom: 96px; min-height: calc(100vh - 220px); }
 .edu-list li { margin-top: 10px; }
 .amber-text { color: var(--amber); }
 
+/* skills */
+.skill-grid { display: grid; grid-template-columns: 110px 1fr; gap: 14px 20px; margin-top: 20px; font-size: 14px; }
+.skill-grid dt { color: var(--muted); }
+.skill-grid dt.green { color: var(--green); }
+.skill-grid dt.blue  { color: var(--blue); }
+.skill-grid dt.amber { color: var(--amber); }
+.skill-grid dd { color: var(--text-soft); line-height: 1.8; }
+
 /* responsive */
 @media (max-width: 860px) {
   .stats { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 640px) {
+  .skill-grid { grid-template-columns: 1fr; gap: 4px 0; }
+  .skill-grid dd { margin-bottom: 14px; }
   .site-nav { flex-direction: column; gap: 10px; }
   .site-nav nav { gap: 12px; flex-wrap: wrap; justify-content: center; }
   .hero h1 { font-size: 28px; }

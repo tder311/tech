@@ -33,6 +33,26 @@
 
     <article class="card">
       <div class="role-head">
+        <h2>gridline</h2>
+        <span class="muted">private · working codename</span>
+      </div>
+      <p class="proj-desc">An energy-market simulator built to stand in for PLEXOS, with two differences. It is visual-first: you design the system on a schematic canvas or a map and read the results on that same network, not in property tables. And it is agent-native: everything the UI can do, the CLI can do, with stable <code>--json</code> output, a self-describing schema and an undo journal. An agent edits the model from a terminal and the change lands on the open canvas within a second, attributed to whoever made it.</p>
+      <p class="proj-desc">Underneath is a chronological LP dispatch in copperplate, zonal or nodal DC-OPF mode, solved in rolling daily windows. Prices come from the duals, and <code>explain price</code> names the marginal units behind any node and hour. It models storage, hydro reservoir chains valued by a horizon-wide water-value pre-solve, multi-band offer curves with time slices, and renewable certificate schemes such as LGCs. A template plugin builds the whole NEM from AEMO's published ISP PLEXOS model through a general PLEXOS XML reader, and results are cross-checked against PyPSA.</p>
+      <p class="muted proj-tech">Python · linopy · HiGHS · DuckDB · FastAPI · React · React Flow · MapLibre · deck.gl · ECharts · ~53,000 lines · 1,400+ tests</p>
+      <div class="shot-grid">
+        <figure class="browser-frame">
+          <figcaption class="browser-bar"><span class="dots" aria-hidden="true">●●●</span> schematic — two-zone study</figcaption>
+          <a href="assets/gridline-schematic.png" target="_blank" rel="noopener"><img src="assets/gridline-schematic.png" alt="Gridline schematic canvas: a two-zone study with North and South zones, buses, generators, storage and loads, a congested interconnector, and the project settings panel" loading="lazy" width="1440" height="900"></a>
+        </figure>
+        <figure class="browser-frame">
+          <figcaption class="browser-bar"><span class="dots" aria-hidden="true">●●●</span> results — one-week run</figcaption>
+          <a href="assets/gridline-results.png" target="_blank" rel="noopener"><img src="assets/gridline-results.png" alt="Gridline results overview for a one-week dispatch run: total cost, load-weighted price, energy served, CO2 and peak demand, a cost breakdown chart, and hourly prices by zone" loading="lazy" width="1440" height="900"></a>
+        </figure>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="role-head">
         <h2>nem-market-watch <span class="chip green tag">live</span> <span class="chip blue tag">public</span></h2>
         <span class="muted"><a href="https://nemdash.up.railway.app" target="_blank" rel="noopener">nemdash.up.railway.app →</a></span>
       </div>
@@ -82,26 +102,6 @@
 <span class="t-prompt">$</span> python -m scripts.backfill bids --start 2026-06-01
 <span class="t-dim">59 days · 3 already complete, skipped</span>
   <span class="t-ok">✓</span> 1 843 226 rows written</code></pre>
-      </div>
-    </article>
-
-    <article class="card">
-      <div class="role-head">
-        <h2>gridline</h2>
-        <span class="muted">private · working codename</span>
-      </div>
-      <p class="proj-desc">An energy-market simulator built to stand in for PLEXOS, with two differences. It is visual-first: you design the system on a schematic canvas or a map and read the results on that same network, not in property tables. And it is agent-native: everything the UI can do, the CLI can do, with stable <code>--json</code> output, a self-describing schema and an undo journal. An agent edits the model from a terminal and the change lands on the open canvas within a second, attributed to whoever made it.</p>
-      <p class="proj-desc">Underneath is a chronological LP dispatch in copperplate, zonal or nodal DC-OPF mode, solved in rolling daily windows. Prices come from the duals, and <code>explain price</code> names the marginal units behind any node and hour. It models storage, hydro reservoir chains valued by a horizon-wide water-value pre-solve, multi-band offer curves with time slices, and renewable certificate schemes such as LGCs. A template plugin builds the whole NEM from AEMO's published ISP PLEXOS model through a general PLEXOS XML reader, and results are cross-checked against PyPSA.</p>
-      <p class="muted proj-tech">Python · linopy · HiGHS · DuckDB · FastAPI · React · React Flow · MapLibre · deck.gl · ECharts · ~53,000 lines · 1,400+ tests</p>
-      <div class="shot-grid">
-        <figure class="browser-frame">
-          <figcaption class="browser-bar"><span class="dots" aria-hidden="true">●●●</span> schematic — two-zone study</figcaption>
-          <a href="assets/gridline-schematic.png" target="_blank" rel="noopener"><img src="assets/gridline-schematic.png" alt="Gridline schematic canvas: a two-zone study with North and South zones, buses, generators, storage and loads, a congested interconnector, and the project settings panel" loading="lazy" width="1440" height="900"></a>
-        </figure>
-        <figure class="browser-frame">
-          <figcaption class="browser-bar"><span class="dots" aria-hidden="true">●●●</span> results — one-week run</figcaption>
-          <a href="assets/gridline-results.png" target="_blank" rel="noopener"><img src="assets/gridline-results.png" alt="Gridline results overview for a one-week dispatch run: total cost, load-weighted price, energy served, CO2 and peak demand, a cost breakdown chart, and hourly prices by zone" loading="lazy" width="1440" height="900"></a>
-        </figure>
       </div>
     </article>
 

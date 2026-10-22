@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Projects — Tom Derrick</title>
-  <meta name="description" content="Tom Derrick's personal projects — a live NEM market dashboard, a price forecaster and battery dispatch optimiser, a five-minute market data pipeline, a terminal UI for supervising AI coding agents, an opencode plugin for parallel coding agents, and a Railway deployment TUI.">
+  <meta name="description" content="Tom Derrick's personal projects — a live NEM market dashboard, a price forecaster and battery dispatch optimiser, a five-minute market data pipeline, an energy-market simulator, a phone ETRM for a NEM trading desk, a terminal UI for supervising AI coding agents, an opencode plugin for parallel coding agents, a Railway deployment TUI, and a git-backed work tracker for people and agents.">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='70' fill='%233fb950'>&gt;_</text></svg>">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Projects — Tom Derrick">
-  <meta property="og:description" content="Tom Derrick's personal projects — a live NEM market dashboard, a price forecaster and battery dispatch optimiser, a five-minute market data pipeline, a terminal UI for supervising AI coding agents, an opencode plugin for parallel coding agents, and a Railway deployment TUI.">
+  <meta property="og:description" content="Tom Derrick's personal projects — a live NEM market dashboard, a price forecaster and battery dispatch optimiser, a five-minute market data pipeline, an energy-market simulator, a phone ETRM for a NEM trading desk, a terminal UI for supervising AI coding agents, an opencode plugin for parallel coding agents, a Railway deployment TUI, and a git-backed work tracker for people and agents.">
   <meta property="og:image" content="https://tder311.github.io/tech/assets/og-card.png">
   <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="styles.css">
@@ -87,6 +87,58 @@
 
     <article class="card">
       <div class="role-head">
+        <h2>gridline</h2>
+        <span class="muted">private · working codename</span>
+      </div>
+      <p class="proj-desc">An energy-market simulator built to stand in for PLEXOS, with two differences. It is visual-first: you design the system on a schematic canvas or a map and read the results on that same network, not in property tables. And it is agent-native: everything the UI can do, the CLI can do, with stable <code>--json</code> output, a self-describing schema and an undo journal. An agent edits the model from a terminal and the change lands on the open canvas within a second, attributed to whoever made it.</p>
+      <p class="proj-desc">Underneath is a chronological LP dispatch in copperplate, zonal or nodal DC-OPF mode, solved in rolling daily windows. Prices come from the duals, and <code>explain price</code> names the marginal units behind any node and hour. It models storage, hydro reservoir chains valued by a horizon-wide water-value pre-solve, multi-band offer curves with time slices, and renewable certificate schemes such as LGCs. A template plugin builds the whole NEM from AEMO's published ISP PLEXOS model through a general PLEXOS XML reader, and results are cross-checked against PyPSA.</p>
+      <p class="muted proj-tech">Python · linopy · HiGHS · DuckDB · FastAPI · React · React Flow · MapLibre · deck.gl · ECharts · ~53,000 lines · 1,400+ tests</p>
+      <div class="term" role="img" aria-label="Example gridline session: adding a battery to a two-zone study, running a week of dispatch, and asking why the North zone price is what it is">
+        <div class="term-bar"><span class="dots" aria-hidden="true">●●●</span> gridline — example session</div>
+        <pre class="term-body"><code><span class="t-prompt">$</span> gridline init my-study --template two-zone
+<span class="t-ok">✓</span> created my-study from template 'two-zone'
+
+<span class="t-prompt">$</span> gridline add storage B2 --bus N2 --p-charge 100 --p-discharge 100 --energy 400
+<span class="t-ok">✓</span> applied batch b3b13388806f <span class="t-dim">· changed: storage.B2</span>
+
+<span class="t-prompt">$</span> gridline run
+<span class="t-dim">solving ━━━━━━━━━━━━━━━━━━━━ 7/7 windows</span>
+<span class="t-ok">✓</span> run 20261022-093954-base-b685 succeeded <span class="t-dim">· objective $22,904,560</span>
+
+<span class="t-prompt">$</span> gridline explain price --run 20261022-093954-base-b685 \
+    --node zone.North --at 2030-01-03T18:00
+zone.North: price <span class="t-ok">108.74 $/MWh</span>
+  <span class="t-dim">marginal     kind     node         cost $/MWh</span>
+  gen.gas1     gen      zone.South   105.47
+  storage.B2   storage  zone.North</code></pre>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="role-head">
+        <h2>pocket-etrm</h2>
+        <span class="muted">private</span>
+      </div>
+      <p class="proj-desc">A local-first Energy Trading and Risk Management app for a NEM trading desk, built as a native phone app. Capture ASX futures and caps across NSW, QLD, VIC and SA, bespoke OTC contracts with custom month, day-of-week and hour-window delivery shapes, and LGC and ACCU certificates. Then see netted positions with mark-to-market, daily and closed-out P&amp;L, hour-weighted MWh exposure, limit breaches, and a parametric delta-normal VaR with editable vol and correlation assumptions. A "Sync ASX" action reads the public ASX Energy settlement pages straight from the phone, and every mark is tagged ASX, manual or synthetic so it is always clear which numbers are real.</p>
+      <p class="proj-desc">Nothing derived is stored: positions, MtM, P&amp;L, exposure and VaR are all computed on read from deals and marks, so every number on screen traces back to the ticket that produced it, and a new valuation rule never needs a backfill. One function, <code>unitHours(type, tenor)</code>, decides how many hours or certificates an instrument spans, and every valuation is written once against it, which is why adding certificates as a second commodity changed that function and nothing else. Shipped as thirteen tagged releases, v0.1 to v1.3, over the air with EAS Update.</p>
+      <p class="muted proj-tech">TypeScript · Expo / React Native · SQLite · Drizzle ORM · Jest · EAS · 105 tests on a pure calc engine</p>
+      <div class="term" role="img" aria-label="Example pocket-etrm session: the calc engine's test suite passing, and unitHours returning the hours each instrument spans in 2026 Q4">
+        <div class="term-bar"><span class="dots" aria-hidden="true">●●●</span> pocket-etrm — calc engine</div>
+        <pre class="term-body"><code><span class="t-prompt">$</span> npx jest
+<span class="t-ok">✓</span> Test Suites: 11 passed, 11 total
+<span class="t-ok">✓</span> Tests:       105 passed, 105 total
+
+<span class="t-prompt">&gt;</span> unitHours(type, '2026Q4')
+  BASE_FUTURE     2208   <span class="t-dim">every hour of the quarter</span>
+  PEAK_FUTURE      990   <span class="t-dim">Mon–Fri 07:00–22:00</span>
+  PEAK_MORNING     276   <span class="t-dim">06:00–09:00, every day</span>
+  PEAK_EVENING     460   <span class="t-dim">16:00–21:00, every day</span>
+  LGC · ACCU         1   <span class="t-dim">per certificate</span></code></pre>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="role-head">
         <h2>agent-tui <span class="chip green tag">public</span></h2>
         <span class="muted"><a href="https://github.com/tder311/agent-tui" target="_blank" rel="noopener">github.com/tder311/agent-tui →</a></span>
       </div>
@@ -157,6 +209,33 @@
 <span class="t-dim">│</span>         <span class="t-ok">●</span> Postgres         <span class="t-dim">│</span><span class="t-dim">│</span>  <span class="t-dim">enter → logs</span>    <span class="t-dim">R redeploy</span>    <span class="t-dim">B rollback</span>        <span class="t-dim">│</span>
 <span class="t-dim">╰────────────────────────────╯╰──────────────────────────────────────────────────╯</span>
 <span class="t-dim"> NAV  Deploys   [tab] focus  [1-4] tab  [?] help  [q] quit</span></code></pre>
+      </div>
+    </article>
+
+    <article class="card">
+      <div class="role-head">
+        <h2>work-graph</h2>
+        <span class="muted">private</span>
+      </div>
+      <p class="proj-desc">A local, git-backed work tracker that people and AI agents share: what's left, who has it, and what each task waits on. YAML files are the source of truth, and one Python core drives a CLI, a local web page and a Textual terminal UI. Ready and Blocked are derived from the dependency graph rather than stored, the longest remaining chain is highlighted, and priority flows backwards, so whatever stands in the way of P1 work is treated as P1 too. Agents run <code>workgraph next</code> before asking what to do, and merged or closed PRs close their tasks automatically.</p>
+      <p class="proj-desc">Every edit, from any view, agent or PR sync, is its own commit, and a write fetches, merges and pushes before it reports OK, so two machines can work the same graph at once. A custom git merge driver merges concurrent edits task by task, and status changes are compare-and-swap: if two clones claim the same task, the second write fails and says who won.</p>
+      <p class="muted proj-tech">Python · Typer · Textual · FastAPI · ruamel.yaml · git merge driver · 400+ tests</p>
+      <div class="term" role="img" aria-label="Example work-graph session: adding dependent tasks and listing what is ready next, with priority inherited by blockers">
+        <div class="term-bar"><span class="dots" aria-hidden="true">●●●</span> work-graph — example session</div>
+        <pre class="term-body"><code><span class="t-prompt">$</span> workgraph add "Publish forecast release" --owner tom --area release \
+    --priority P1 --dep re-run-capacity-expansion
+<span class="t-ok">✓</span> release: add publish-forecast-release
+
+<span class="t-prompt">$</span> workgraph list
+  <span class="t-dim">ID                          Pri   Status        Open deps</span>
+  refresh-demand-traces       <span class="t-warn">P1↑</span>   <span class="t-ok">Ready</span>
+  re-run-capacity-expansion   <span class="t-warn">P1↑</span>   Blocked · 1   refresh-demand-traces
+  publish-forecast-release    <span class="t-warn">P1</span>    Blocked · 1   re-run-capacity-expansion
+  update-methodology-docs           <span class="t-ok">Ready</span>
+
+<span class="t-prompt">$</span> WORKGRAPH_ACTOR=agent workgraph set refresh-demand-traces --status in_progress
+<span class="t-ok">✓</span> release: refresh-demand-traces status todo→in_progress
+<span class="t-dim">committed as "release: refresh-demand-traces status todo→in_progress [agent]"</span></code></pre>
       </div>
     </article>
 

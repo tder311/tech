@@ -59,7 +59,7 @@
 
   <h2>Personal Projects</h2>
   <ul>
-    <li><strong>gridline</strong> — energy-market simulator built to stand in for PLEXOS, visual-first and agent-native: chronological LP dispatch (copperplate, zonal or nodal DC-OPF) with prices from duals and a “why this price” explain, storage, hydro water values and offer curves; builds the NEM from AEMO's ISP PLEXOS model. Python · linopy · HiGHS · React.</li>
+    <li><strong>gridline</strong> — energy-market simulator built to stand in for PLEXOS, visual-first and agent-native: chronological LP dispatch (copperplate, zonal or nodal DC-OPF) with prices from duals; builds the NEM from AEMO's ISP as a preset model. Python · linopy · HiGHS · React.</li>
     <li><strong>nem-market-watch</strong> (nemdash.up.railway.app) — live dashboard for Australia's National Electricity Market: five-minute prices and demand, market metrics, PASA reserve outlook, bid-band analysis, and a tool-calling LLM agent that answers questions against live data. React · FastAPI · PostgreSQL · Railway.</li>
     <li><strong>nem-forward</strong> (forward-frontend-production.up.railway.app) — XGBoost price forecaster (7-day, half-hourly, P10–P90) benchmarked against AEMO pre-dispatch, LP battery dispatch optimiser, and bid-band generation; every forecast persisted for later scoring against actuals. XGBoost · FastAPI · React.</li>
     <li><strong>nem-ingestion</strong> — five-minute AEMO market data pipeline: six NEMWEB clients, sole writer and schema owner across 13 tables, backfill CLIs, hourly rollups, and a retention sweep that cut the database from 21 GB to 2 GB. Python · PostgreSQL · Railway.</li>
